@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This will be the Server side of socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "JOSDEAD",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io-client": "^4.2.0"
+  },
+  "devDependencies" : {
+    "nodemon": "^2.0.12"
+}
+}
