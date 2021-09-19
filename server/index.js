@@ -9,13 +9,18 @@ io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('call',(message) => {
         console.log(message);
-        io.emit(message);
+        io.emit('call');
     });
+    socket.on('online',() => {
+        console.log('porton online');
+        io.emit('porton online')
+    })
+      socket.on("disconnect", (reason) => {
+        console.log('Puerton desconectado');
+  });
 });
 
-setInterval(() => {
-    io.emit('call');
-}, 8000);
+
 server.listen(8080, () => {
 console.log('listening on *:8080');
 });

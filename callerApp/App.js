@@ -6,7 +6,9 @@
  * @flow strict-local
  */
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef} from 'react';
+import {AppState} from 'react-native';
+import BackgroundTimer from 'react-native-background-timer';
 window.navigator.userAgent = 'react-native';
 import {io} from 'socket.io-client';
 import type {Node} from 'react';
@@ -61,9 +63,20 @@ const App: () => Node = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const appState = useRef(AppState.currentState);
+  const socket = io('ws://192.168.0.6:8080', { transports: ["websocket"] });
 
+  var interval = interval = BackgroundTimer.setInterval(()=>{
+          console.log('connection status ', socket.connected);
+          console.log(socket.disconnected);
+          if(socket.disconnected){
+            console.log('entro');
+            socket.close();
+            socket.open();
+          } 
+          socket.emit('online')
+        },5000)
   useEffect(() => {
-    const socket = io('ws://192.168.0.6:8080', { transports: ["websocket"] });
     // client-side
     socket.connect();
     console.log('entro');
